@@ -130,7 +130,7 @@ def get_object_request_sync_from_db():
         conn = pg_conn()
         cur = conn.cursor()
         cur.execute(
-            "select object_name,bucket_name,bucket_dest_synced from objects where sync_request =  True;"
+            "select object_name,bucket_name,bucket_dest_synced from objects where sync_request =  True and sync_status != 'synchronized';"
         )
         db_result = cur.fetchall()
         if len(db_result) > 0:
@@ -168,7 +168,7 @@ def update_object_sync_status(object_name, bucket_name):
         conn = pg_conn()
         cur = conn.cursor()
         cur.execute(
-            "update sync_status set  = 'synchronized' where bucket_name = '%s' and object_name = '%s' "
+            "update objects set sync_status = 'synchronized' where bucket_name = '%s' and object_name = '%s' "
             % (bucket_name, object_name)
         )
         conn.commit()
