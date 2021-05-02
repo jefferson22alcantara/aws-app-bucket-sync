@@ -10,6 +10,7 @@ from multiprocessing.pool import ThreadPool
 from multiprocessing import Process, Queue
 import time
 import sys
+import os
 import json
 import random
 import logging
@@ -24,6 +25,8 @@ import psycopg2
 region = "sa-east-1"
 profile = ""
 buckets_list = ["dev-s3-sensu-assets"]
+
+POSTGRESS_DB_HOST = os.environ.get("POSTGRESS_DB_HOST", "")
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)

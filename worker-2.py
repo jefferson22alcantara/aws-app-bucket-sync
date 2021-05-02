@@ -11,6 +11,7 @@ from multiprocessing.pool import ThreadPool
 from multiprocessing import Process, Queue
 import time
 import sys
+import os
 import json
 import random
 import logging
@@ -39,11 +40,17 @@ handler.setFormatter(formatter)
 # add the handlers to the logger
 logger.addHandler(handler)
 
+POSTGRESS_DB_HOST = os.environ.get("POSTGRESS_DB_HOST", "")
+MONGO_DB_HOST = os.environ.get("MONGO_DB_HOST", "")
+
 
 def pg_conn():
     try:
         conn = psycopg2.connect(
-            host="localhost", database="bucket_infos", user="docker", password="docker"
+            host=POSTGRESS_DB_HOST,
+            database="bucket_infos",
+            user="docker",
+            password="docker",
         )
         return conn
     except (Exception, psycopg2.DatabaseError) as error:
@@ -52,7 +59,7 @@ def pg_conn():
 
 def mg_conn():
     try:
-        client = MongoClient("mongodb://%s:%s@127.0.0.1" % ("admin", "admin"))
+        client = MongoClient("mongodb://%s:%s@%s" % ("admin", "admin", MONGO_DB_HOST))
         return client
     except Exception as e:
         logger.warning(str(e))
@@ -69,7 +76,7 @@ def get_all_from_pg():
 def updage_mongo_infos_from_pg():
     mongo_conn = mg_conn()
     if check_db_exist(mongo_conn):
-        print("DB JA EXISTE ")
+        print("Database Already exist")
         pg_infos = get_all_from_pg()
         for info in pg_infos:
             object_name = info[1]
