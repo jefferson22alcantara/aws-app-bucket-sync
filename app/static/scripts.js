@@ -57,7 +57,7 @@ function submit_by_id() {
 		data: JSON.stringify(inputData),
 		contentType: 'application/json; charset=utf-8',
 		success: function (response) {
-			alert("teste" + response);
+			alert("SYNC REQUEST SENT SUCCESS \n" + response);
 		},
 		error: function () {
 			alert("error");
