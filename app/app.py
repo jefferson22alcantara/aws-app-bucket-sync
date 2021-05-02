@@ -1,5 +1,6 @@
 import os
 import sys
+from pymongo import MongoClient
 from flask import (
     Flask,
     url_for,
@@ -11,6 +12,10 @@ from flask import (
     jsonify,
     json,
 )
+
+POSTGRESS_DB_HOST = os.environ.get("POSTGRESS_DB_HOST", "")
+MONGO_DB_HOST = os.environ.get("MONGO_DB_HOST", "")
+
 import logging
 
 logger = logging.getLogger(__name__)
@@ -36,14 +41,20 @@ from flask_login import LoginManager, login_required, UserMixin, login_user
 
 template_dir = os.path.abspath("./templates")
 app = Flask(__name__, template_folder=template_dir, static_folder="./static")
-app.config[
-    "SQLALCHEMY_DATABASE_URI"
-] = "postgresql://docker:docker@localhost:5432/bucket_infos"
+app.config["SQLALCHEMY_DATABASE_URI"] = (
+    "postgresql://docker:docker@%s:5432/bucket_infos" % POSTGRESS_DB_HOST
+)
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
 
 # migrate = Migrate(app, db)
+def mg_conn():
+    try:
+        client = MongoClient("mongodb://%s:%s@%s" % ("admin", "admin", MONGO_DB_HOST))
+        return client
+    except Exception as e:
+        logger.warning(str(e))
 
 
 class ObjectModel(db.Model):
@@ -70,38 +81,28 @@ class ObjectModel(db.Model):
 
 @app.route("/", methods=["GET", "POST"])
 def home():
-    return render_template("index-2.html", title="Dashboard")
+    buckets = ["bucket1", "bucket2", "dev-s3-sensu-assets"]
+    return render_template("index-2.html", title="Dashboard", buckets=buckets)
 
 
 @app.route("/_list_bucket", methods=["GET"])
 def list_bucket_from_db():
     bucket_name = request.args.get("bucket", 0)
-    info = [
-        {
-            "bucket_name": "dev-s3-sensu-assets",
-            "object_name": "TESTE1.txt",
-            "sync_status": "Not Sync",
-            "bucket_sync": " - ",
-        },
-        {
-            "bucket_name": bucket_name,
-            "object_name": "TESTE2.txt",
-            "sync_status": "Not Sync",
-            "bucket_sync": " - ",
-        },
-        {
-            "bucket_name": bucket_name,
-            "object_name": "Objet1",
-            "sync_status": "Not Sync",
-            "bucket_sync": " - ",
-        },
-        {
-            "bucket_name": "bucket1",
-            "object_name": "TESTE1.txt",
-            "sync_status": "Not Sync",
-            "bucket_sync": " - ",
-        },
-    ]
+    mongo_client = mg_conn()
+    db = mongo_client.get_database("objects")
+    collection = db.get_collection("objects").find()
+    info = []
+    for object_name in collection:
+        info.append(
+            {
+                "bucket_name": object_name.get("bucket_name"),
+                "object_name": object_name.get("object_name"),
+                "sync_status": object_name.get("sync_status"),
+                "bucket_sync": object_name.get("bucket_sync"),
+            }
+        )
+
+    print(info)
     return jsonify(info)
 
 

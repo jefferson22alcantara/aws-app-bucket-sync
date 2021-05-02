@@ -21,6 +21,7 @@ document.getElementById("listbucketButton").onclick = function () {
 									<select id=\"bucket_dest\"> \
 										<option value=\"bucket1\">Bucket 1 </option>  \
 										<option value=\"bucket2\">Bucket 2 </option> \  </select>  \
+										<option value=\"bucket3\">Bucket 3 </option > \  </select >  \
 								</td > \
 								</tr > ");
 			});

@@ -195,6 +195,9 @@ def worker2():
     updage_mongo_infos_from_pg()
 
 
+"""
+TO RUN worker-2.py 
+"""
 if __name__ == "__main__":
     while True:
         try:
