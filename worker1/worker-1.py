@@ -24,7 +24,7 @@ import psycopg2
 
 # region = "sa-east-1"
 # profile = ""
-buckets_list = ["dev-s3-sensu-assets"]
+# buckets_list = ["dev-s3-sensu-assets"]
 
 POSTGRESS_DB_HOST = os.environ.get("POSTGRESS_DB_HOST", "")
 
@@ -126,14 +126,20 @@ get object from buckets array and insert ou update infos from object on postgres
 def worker1(buckets):
     buckets_list = buckets.split(",")
     for bucket in buckets_list:
+        sleep(0.5)
         print(bucket)
         objects_list = get_all_objects(bucket).get("Contents")
-        for obj in objects_list:
-            object_name = obj.get("Key")
-            if check_object_exist_db(bucket, object_name, pg_conn()) is not True:
-                insert_object_infos_to_pg(bucket, object_name, pg_conn())
-            else:
-                logger.warning("Object Alread Exist on Postgress Db - nothing To do ")
+        if objects_list is not None:
+            for obj in objects_list:
+                object_name = obj.get("Key")
+                if check_object_exist_db(bucket, object_name, pg_conn()) is not True:
+                    insert_object_infos_to_pg(bucket, object_name, pg_conn())
+                else:
+                    logger.warning(
+                        "Object Alread Exist on Postgress Db - nothing To do "
+                    )
+        else:
+            logger.warning("Not found object on Bucket %s" % bucket)
 
 
 def parseArguments():
@@ -167,7 +173,7 @@ if __name__ == "__main__":
         while True:
             try:
                 worker1(args.buckets)
-                sleep(5)
+                sleep(10)
             except Exception as e:
                 logger.warning(
                     "Connections db or Aws is not possible , Please check connections !!!"

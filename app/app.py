@@ -81,7 +81,11 @@ class ObjectModel(db.Model):
 
 @app.route("/", methods=["GET", "POST"])
 def home():
-    buckets = ["bucket1", "bucket2", "dev-s3-sensu-assets"]
+    buckets = [
+        "aws-app-bucket-sync-1",
+        "aws-app-bucket-sync-2",
+        "aws-app-bucket-sync-3",
+    ]
     return render_template("index-2.html", title="Dashboard", buckets=buckets)
 
 
