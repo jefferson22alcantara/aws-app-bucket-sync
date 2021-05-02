@@ -202,7 +202,7 @@ if __name__ == "__main__":
     while True:
         try:
             worker2()
-            sleep(30)
+            sleep(5)
         except Exception as e:
             logger.warning(
                 "Connections db or Aws is not possible , Please check connections !!!"

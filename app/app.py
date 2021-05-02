@@ -90,7 +90,7 @@ def list_bucket_from_db():
     bucket_name = request.args.get("bucket", 0)
     mongo_client = mg_conn()
     db = mongo_client.get_database("objects")
-    collection = db.get_collection("objects").find()
+    collection = db.get_collection("objects").find({"bucket_name": bucket_name})
     info = []
     for object_name in collection:
         info.append(
@@ -130,6 +130,7 @@ def request_sync_to_db(bucket_name, object_name, sync_request, bucket_dest):
         logger.info("Upddate Status of request sync for True ")
         if object_filter.sync_request != True:
             object_filter.sync_request = True
+            object_filter.sync_status = "PROCESSING"
             logger.info("update to dest bucket synced to bucket %s " % bucket_dest)
             object_filter.bucket_dest_synced = bucket_dest
             db.session.flush()

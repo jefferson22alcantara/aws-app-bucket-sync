@@ -20,14 +20,13 @@ document.getElementById("listbucketButton").onclick = function () {
 								<td class=\"nr\"> \
 									<select id=\"bucket_dest\"> \
 										<option value=\"bucket1\">Bucket 1 </option>  \
-										<option value=\"bucket2\">Bucket 2 </option> \  </select>  \
-										<option value=\"bucket3\">Bucket 3 </option > \  </select >  \
+										<option value=\"bucket2\">Bucket 2 </option> <option value =\"bucket3\">Bucket 3 </option> \  </select >  \
 								</td > \
 								</tr > ");
 			});
 		},
 		error: function () {
-			alert("error");
+			alert("Not Data Found");
 		}
 	});
 }
