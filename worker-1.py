@@ -123,7 +123,8 @@ get object from buckets array and insert ou update infos from object on postgres
 """
 
 
-def worker1():
+def worker1(buckets):
+    buckets_list = buckets.split(",")
     for bucket in buckets_list:
         print(bucket)
         objects_list = get_all_objects(bucket).get("Contents")
@@ -135,15 +136,39 @@ def worker1():
                 logger.warning("Object Alread Exist on Postgress Db - nothing To do ")
 
 
+def parseArguments():
+    from argparse import RawTextHelpFormatter
+
+    parser = argparse.ArgumentParser(description="Worker  1 ")
+    parser = argparse.ArgumentParser(
+        formatter_class=RawTextHelpFormatter,
+        description="""
+
+    {0} --buckets bucket1,bucket2,bucket3 \n
+
+    """.format(
+            __file__
+        ),
+    )
+
+    parser.add_argument("--buckets", help="bucket_list")
+    return parser.parse_args(), parser
+
+
 """
 TO RUN worker-1.py --buckets bucket1,bucket2,bucket3 
 """
 if __name__ == "__main__":
-    while True:
-        try:
-            worker1()
-            sleep(30)
-        except Exception as e:
-            logger.warning(
-                "Connections db or Aws is not possible , Please check connections !!!"
-            )
+    args = parseArguments()[0]
+    cli_help = parseArguments()[1]
+    if not args.buckets:
+        cli_help.print_help()
+    else:
+        while True:
+            try:
+                worker1(args.buckets)
+                sleep(30)
+            except Exception as e:
+                logger.warning(
+                    "Connections db or Aws is not possible , Please check connections !!!"
+                )
