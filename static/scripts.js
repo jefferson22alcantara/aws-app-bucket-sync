@@ -12,8 +12,8 @@ document.getElementById("listbucketButton").onclick = function () {
 			jQuery.each(data, function (i, d) {
 
 				$("#posts").append("<tr id=" + Math.floor(Math.random() * 100) + ">\
-								<td class=\"nr\">" + d['bucket'] + "</td> \
-								<td class=\"nr\">" + d['obj'] + "</td> \
+								<td class=\"nr\">" + d['bucket_name'] + "</td> \
+								<td class=\"nr\">" + d['object_name'] + "</td> \
 								<td class=\"nr\">" + d['sync_status'] + "</td> \
 								<td class=\"nr\">" + d['bucket_sync'] + "</td> \
 								<td>  <button type=\"button\" id=\"fname\" name=\"fname\" value=\"Sync\" class=\"btn btn-warning\"  onclick=\"submit_by_id()\" > SYNC</button> </td > \
@@ -40,14 +40,14 @@ function submit_by_id() {
 	/*returns array of all elements with 
 	"row-data" class within the row with given id*/
 
-	var bucket = data[0].innerHTML;
-	var obj = data[1].innerHTML;
+	var bucket_name = data[0].innerHTML;
+	var object_name = data[1].innerHTML;
 	var select_item = data[4].querySelector('#bucket_dest').selectedIndex;
 	var bucket_dest = data[4].getElementsByTagName('option')[select_item].value;
 
 	var inputData = {
-		"bucket": bucket,
-		"obj": obj,
+		"bucket_name": bucket_name,
+		"object_name": object_name,
 		"bucket_dest": bucket_dest
 	};
 	console.log(bucket_dest);
