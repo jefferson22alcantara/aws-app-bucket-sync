@@ -15,6 +15,7 @@ import random
 import logging
 import argparse
 import warnings
+from time import sleep
 
 warnings.filterwarnings("ignore", category=UserWarning, module="psycopg2")
 import psycopg2
@@ -63,7 +64,7 @@ def pg_conn():
         )
         return conn
     except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
+        logger.warning(str(error))
 
 
 def insert_object_infos_to_pg(bucket, object_name, pg_conn):
@@ -131,3 +132,14 @@ def worker1():
                 insert_object_infos_to_pg(bucket, object_name, pg_conn())
             else:
                 logger.warning("Object Alread Exist on Postgress Db - nothing To do ")
+
+
+if __name__ == "__main__":
+    while True:
+        try:
+            worker1()
+            sleep(30)
+        except Exception as e:
+            logger.warning(
+                "Connections db or Aws is not possible , Please check connections !!!"
+            )
