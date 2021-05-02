@@ -22,8 +22,8 @@ warnings.filterwarnings("ignore", category=UserWarning, module="psycopg2")
 import psycopg2
 
 
-region = "sa-east-1"
-profile = ""
+# region = "sa-east-1"
+# profile = ""
 buckets_list = ["dev-s3-sensu-assets"]
 
 POSTGRESS_DB_HOST = os.environ.get("POSTGRESS_DB_HOST", "")
@@ -45,16 +45,14 @@ handler.setFormatter(formatter)
 logger.addHandler(handler)
 
 
-def client(resource_type, region):
-    config = Config(
-        region_name=region, retries={"max_attempts": 10, "mode": "standard"},
-    )
+def client(resource_type):
+    config = Config(retries={"max_attempts": 10, "mode": "standard"},)
     session = boto3.Session()
     return session.client(resource_type, config=config)
 
 
-def get_all_objects(region, bucket):
-    conn = client("s3", region)
+def get_all_objects(bucket):
+    conn = client("s3")
     logger.info("Getting all objects from bucket ")
     objects = conn.list_objects(Bucket=bucket)
     return objects
@@ -128,7 +126,7 @@ get object from buckets array and insert ou update infos from object on postgres
 def worker1():
     for bucket in buckets_list:
         print(bucket)
-        objects_list = get_all_objects(region, bucket).get("Contents")
+        objects_list = get_all_objects(bucket).get("Contents")
         for obj in objects_list:
             object_name = obj.get("Key")
             if check_object_exist_db(bucket, object_name, pg_conn()) is not True:
@@ -137,6 +135,9 @@ def worker1():
                 logger.warning("Object Alread Exist on Postgress Db - nothing To do ")
 
 
+"""
+TO RUN worker-1.py --buckets bucket1,bucket2,bucket3 
+"""
 if __name__ == "__main__":
     while True:
         try:
