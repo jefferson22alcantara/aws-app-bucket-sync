@@ -1,6 +1,5 @@
 # aws-app-bucket-sync
 
-
 ECS AWS - WORKERS 
     worker 1 with ENV VARS POSTGRESS_DB_HOST, MONGO_DB_HOST
     worker 2 with ENV VARS POSTGRESS_DB_HOST, MONGO_DB_HOST
