@@ -1,9 +1,10 @@
 [
   {
-    "name": "challenge-web-app-1",
-    "image": "nginx",
+    "name": "challenge-web-app",
+    "image": "jefferson22alcantara/challenge-job:web",
     "cpu": 10,
     "memory": 256,
+    "networkMode": "awsvpc",
     "essential": true,
     "portMappings": [
       {
@@ -16,6 +17,130 @@
         "awslogs-group": "/ecs/frontend-container",
         "awslogs-region": "us-east-1"
       }
-    }
+    },
+    "environment": [
+      {
+        "name": "MONGO_DB_HOST",
+        "value": "${MONGO_DB_HOST}"
+      },
+      {
+        "name": "POSTGRESS_DB_HOST",
+        "value": "${POSTGRESS_DB_HOST}"
+      }
+    ]
+  },
+  {
+    "name": "worker1",
+    "image": "jefferson22alcantara/challenge-job:worker1",
+    "cpu": 10,
+    "memory": 256,
+    "networkMode": "awsvpc",
+    "essential": true,
+    "portMappings": [
+      {
+        "containerPort": 80
+      }
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "/ecs/frontend-container",
+        "awslogs-region": "us-east-1"
+      }
+    },
+    "environment": [
+      {
+        "name": "MONGO_DB_HOST",
+        "value": "${MONGO_DB_HOST}"
+      },
+      {
+        "name": "POSTGRESS_DB_HOST",
+        "value": "${POSTGRESS_DB_HOST}"
+      },
+      {
+        "name": "AWS_SECRET_ACCESS_KEY",
+        "value": "${AWS_SECRET_ACCESS_KEY}"
+      },
+      {
+        "name": "AWS_ACCESS_KEY_ID",
+        "value": "${AWS_ACCESS_KEY_ID}"
+      }
+    ]
+  },
+  {
+    "name": "worker2",
+    "image": "jefferson22alcantara/challenge-job:worker2",
+    "cpu": 10,
+    "memory": 256,
+    "networkMode": "awsvpc",
+    "essential": true,
+    "portMappings": [
+      {
+        "containerPort": 80
+      }
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "/ecs/frontend-container",
+        "awslogs-region": "us-east-1"
+      }
+    },
+    "environment": [
+      {
+        "name": "MONGO_DB_HOST",
+        "value": "${MONGO_DB_HOST}"
+      },
+      {
+        "name": "POSTGRESS_DB_HOST",
+        "value": "${POSTGRESS_DB_HOST}"
+      },
+      {
+        "name": "AWS_SECRET_ACCESS_KEY",
+        "value": "${AWS_SECRET_ACCESS_KEY}"
+      },
+      {
+        "name": "AWS_ACCESS_KEY_ID",
+        "value": "${AWS_ACCESS_KEY_ID}"
+      }
+    ]
+  },
+  {
+    "name": "worker3",
+    "image": "jefferson22alcantara/challenge-job:worker3",
+    "cpu": 10,
+    "memory": 256,
+    "networkMode": "awsvpc",
+    "essential": true,
+    "portMappings": [
+      {
+        "containerPort": 80
+      }
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "/ecs/frontend-container",
+        "awslogs-region": "us-east-1"
+      }
+    },
+    "environment": [
+      {
+        "name": "MONGO_DB_HOST",
+        "value": "${MONGO_DB_HOST}"
+      },
+      {
+        "name": "POSTGRESS_DB_HOST",
+        "value": "${POSTGRESS_DB_HOST}"
+      },
+      {
+        "name": "AWS_SECRET_ACCESS_KEY",
+        "value": "${AWS_SECRET_ACCESS_KEY}"
+      },
+      {
+        "name": "AWS_ACCESS_KEY_ID",
+        "value": "${AWS_ACCESS_KEY_ID}"
+      }
+    ]
   }
 ]

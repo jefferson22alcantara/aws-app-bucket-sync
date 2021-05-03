@@ -3,7 +3,7 @@ docker run -d \
 -p 5432:5432 \
 -e POSTGRES_PASSWORD='admin' \
 -e POSTGRES_USER='admin' \
-eg_postgresql 
+jefferson22alcantara/challenge-job:pg
 
 
 
