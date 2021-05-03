@@ -68,7 +68,10 @@ def get_all_objects(bucket):
 def pg_conn():
     try:
         conn = psycopg2.connect(
-            host="localhost", database="bucket_infos", user="docker", password="docker"
+            host=POSTGRESS_DB_HOST,
+            database="bucket_infos",
+            user="docker",
+            password="docker",
         )
         return conn
     except (Exception, psycopg2.DatabaseError) as error:
@@ -159,7 +162,7 @@ def copy_object(bucket_source, bucket_dest, object_name):
         result = bucket.copy(copy_source, object_name)
         return True
     except Exception as e:
-        logger.info("Not possible copy object ")
+        logger.info("Not possible copy object %s" % str(e))
         return False
 
 

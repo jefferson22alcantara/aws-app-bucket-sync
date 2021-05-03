@@ -61,7 +61,10 @@ def get_all_objects(bucket):
 def pg_conn():
     try:
         conn = psycopg2.connect(
-            host="localhost", database="bucket_infos", user="docker", password="docker"
+            host=POSTGRESS_DB_HOST,
+            database="bucket_infos",
+            user="docker",
+            password="docker",
         )
         return conn
     except (Exception, psycopg2.DatabaseError) as error:

@@ -1,0 +1,5 @@
+.terraform/
+.env
+.dockerun
+__pycache__/
+app/__pycache__

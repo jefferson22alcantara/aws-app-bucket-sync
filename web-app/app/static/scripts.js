@@ -19,8 +19,8 @@ document.getElementById("listbucketButton").onclick = function () {
 								<td>  <button type=\"button\" id=\"fname\" name=\"fname\" value=\"Sync\" class=\"btn btn-warning\"  onclick=\"submit_by_id()\" > SYNC</button> </td > \
 								<td class=\"nr\"> \
 									<select id=\"bucket_dest\"> \
-										<option value=\"aws-app-bucket-sync-1\">aws-app-bucket-sync-1</option>  \
-										<option value=\"aws-app-bucket-sync-2\">aws-app-bucket-sync-2</option> <option value =\"aws-app-bucket-sync-3\">aws-app-bucket-sync-3</option> \  </select >  \
+										<option value=\"aws-app-bucket-sync-1\">aws-app-bucket-sync-11</option>  \
+										<option value=\"aws-app-bucket-sync-2\">aws-app-bucket-sync-12</option> <option value =\"aws-app-bucket-sync-13\">aws-app-bucket-sync-3</option> \  </select >  \
 								</td > \
 								</tr > ");
 			});

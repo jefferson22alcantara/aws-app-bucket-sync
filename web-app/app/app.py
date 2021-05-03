@@ -82,9 +82,9 @@ class ObjectModel(db.Model):
 @app.route("/", methods=["GET", "POST"])
 def home():
     buckets = [
-        "aws-app-bucket-sync-1",
-        "aws-app-bucket-sync-2",
-        "aws-app-bucket-sync-3",
+        "aws-app-bucket-sync-11",
+        "aws-app-bucket-sync-12",
+        "aws-app-bucket-sync-13",
     ]
     return render_template("index-2.html", title="Dashboard", buckets=buckets)
 
@@ -139,6 +139,7 @@ def request_sync_to_db(bucket_name, object_name, sync_request, bucket_dest):
             object_filter.bucket_dest_synced = bucket_dest
             db.session.flush()
             db.session.commit()
+        ###TRAVA PARA NAO FAZER REQUEST DE SYNC PARA UM OBJECT QUE JA TENHA FEITO REQUEST
         else:
             logger.info("Object already set to sync request ")
 
