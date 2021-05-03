@@ -1,6 +1,6 @@
 
 resource "aws_security_group" "ec2-sg-db" {
-  name        = "allow-all-ec2"
+  name        = "allow-all-ec2-db"
   description = "allow all"
   vpc_id      = data.aws_vpc.main.id
   ingress {
@@ -61,10 +61,6 @@ module "elb" {
     "createdBy" = "jefferson.moura"
   }
 }
-
-
-
-
 
 
 
