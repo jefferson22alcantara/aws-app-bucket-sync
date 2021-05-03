@@ -14,6 +14,10 @@ output "igw_id" {
   value = module.vpc.igw_id
 }
 
+output "this_elb_dns_name" {
+  description = "The DNS name of the ELB"
+  value       = module.elb.this_elb_dns_name
+}
 # output "elb_dns_name" {
 #   value = module.elb.this_elb_dns_name
 # }

@@ -25,12 +25,11 @@ resource "aws_ecs_capacity_provider" "test" {
 data "template_file" "challenge_web_app" {
   template = file("container-definitions/container-def.json")
 
-  vars {
-    secret_key_base       = "${var.secret_key_base}"
-    POSTGRESS_DB_HOST     = "${module.elb.elb_dns_name}"
-    MONGO_DB_HOST         = "${module.elb.elb_dns_name}"
+  vars = {
+    POSTGRESS_DB_HOST     = "${module.elb.this_elb_dns_name}"
+    MONGO_DB_HOST         = "${module.elb.this_elb_dns_name}"
     AWS_SECRET_ACCESS_KEY = "${var.AWS_SECRET_ACCESS_KEY}"
-    AWS_ACCESS_KEY_ID     = "${var.AWS_SECRET_ACCESS_KEY}"
+    AWS_ACCESS_KEY_ID     = "${var.AWS_ACCESS_KEY_ID}"
   }
 }
 
