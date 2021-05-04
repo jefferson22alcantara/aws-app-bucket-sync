@@ -49,13 +49,10 @@ jobs:
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}  
-
+        
     - name: Terraform Plan
+      uses: hashicorp/terraform-github-actions@master
       id: plan
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
       with:
         tf_actions_version: 0.12.24
         tf_actions_working_dir: 'terraform' 
@@ -65,6 +62,7 @@ jobs:
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}      
+        
     - uses: actions/github-script@v2
       name: Runs only on pull request
       if: github.event_name == 'pull_request'
