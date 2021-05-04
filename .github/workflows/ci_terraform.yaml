@@ -17,29 +17,30 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
       with:
-        terraform_version: 0.12.9     
+        terraform_version: 0.12.9
+        tf_actions_working_dir: 'terraform'     
     - name: Terraform Init
       id: init
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      run: cd terraform ; terraform init -input=false
+      run: terraform init -input=false
     
     - name: Terraform fmt
       id: fmt
-      run: cd terraform ; terraform fmt -check
+      run: terraform fmt -check
       continue-on-error: true
 
     - name: Terraform Validate
       id: validate
-      run: cd terraform ; terraform validate -no-color
+      run: terraform validate -no-color
 
     - name: Terraform Plan
       id: plan
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      run: cd terraform ; terraform plan -no-color 
+      run: terraform plan -no-color 
       continue-on-error: true
     
     - uses: actions/github-script@v2
