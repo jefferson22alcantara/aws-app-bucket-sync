@@ -24,29 +24,19 @@ jobs:
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}      
-    # - name: Terraform Init
-    #   uses: hashicorp/terraform-github-actions@master
-    #   id: init
-    #   env:
-    #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-    #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-    #   # run: terraform init -input=false
-    #   with:
-    #     tf_actions_version: 0.12.9
-    #     tf_actions_working_dir: 'terraform' 
-    #     tf_actions_subcommand: 'init'
-    #     tf_actions_comment: true       
-    
-    # - name: Terraform fmt
-    #   uses: hashicorp/terraform-github-actions@master
-    #   id: fmt
-    #   # run: terraform fmt -check
-    #   continue-on-error: true
-    #   with:
-    #     tf_actions_version: 0.12.9
-    #     tf_actions_working_dir: 'terraform' 
-    #     tf_actions_subcommand: 'fmt -check'
-    #     tf_actions_comment: true 
+      
+    - name: Terraform fmt
+      uses: hashicorp/terraform-github-actions@master
+      id: fmt
+      continue-on-error: true
+      with:
+        tf_actions_version: 0.12.24
+        tf_actions_working_dir: 'terraform' 
+        tf_actions_subcommand: 'fmt -check'
+        tf_actions_comment: true
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}      
 
     # - name: Terraform Validate
     #   uses: hashicorp/terraform-github-actions@master
