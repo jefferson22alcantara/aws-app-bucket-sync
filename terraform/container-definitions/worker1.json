@@ -1,0 +1,43 @@
+[
+  {
+    "name": "worker1",
+    "image": "jefferson22alcantara/challenge-job:worker1",
+    "cpu": 10,
+    "command": [
+      "--buckets",
+      "aws-app-bucket-sync-11,aws-app-bucket-sync-12,aws-app-bucket-sync-13"
+    ],
+    "memory": 256,
+    "essential": true,
+    "portMappings": [
+      {
+        "containerPort": 80
+      }
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "/ecs/frontend-container",
+        "awslogs-region": "us-east-1"
+      }
+    },
+    "environment": [
+      {
+        "name": "MONGO_DB_HOST",
+        "value": "${MONGO_DB_HOST}"
+      },
+      {
+        "name": "POSTGRESS_DB_HOST",
+        "value": "${POSTGRESS_DB_HOST}"
+      },
+      {
+        "name": "AWS_SECRET_ACCESS_KEY",
+        "value": "${AWS_SECRET_ACCESS_KEY}"
+      },
+      {
+        "name": "AWS_ACCESS_KEY_ID",
+        "value": "${AWS_ACCESS_KEY_ID}"
+      }
+    ]
+  }
+]

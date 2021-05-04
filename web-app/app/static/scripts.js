@@ -19,8 +19,8 @@ document.getElementById("listbucketButton").onclick = function () {
 								<td>  <button type=\"button\" id=\"fname\" name=\"fname\" value=\"Sync\" class=\"btn btn-warning\"  onclick=\"submit_by_id()\" > SYNC</button> </td > \
 								<td class=\"nr\"> \
 									<select id=\"bucket_dest\"> \
-										<option value=\"aws-app-bucket-sync-1\">aws-app-bucket-sync-11</option>  \
-										<option value=\"aws-app-bucket-sync-2\">aws-app-bucket-sync-12</option> <option value =\"aws-app-bucket-sync-13\">aws-app-bucket-sync-3</option> \  </select >  \
+										<option value=\"aws-app-bucket-sync-11\">aws-app-bucket-sync-11</option>  \
+										<option value=\"aws-app-bucket-sync-12\">aws-app-bucket-sync-12</option> <option value =\"aws-app-bucket-sync-13\">aws-app-bucket-sync-13</option> \  </select >  \
 								</td > \
 								</tr > ");
 			});
@@ -60,7 +60,7 @@ function submit_by_id() {
 			alert("SYNC REQUEST SENT SUCCESS \n" + response);
 		},
 		error: function () {
-			alert("error");
+			alert("Some Error to Execute Request \nPlease Try Again!!!!!");
 		}
 	});
 
