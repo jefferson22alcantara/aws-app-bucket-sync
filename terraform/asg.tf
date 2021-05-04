@@ -68,8 +68,8 @@ resource "aws_autoscaling_group" "asg" {
   health_check_grace_period = 300
   vpc_zone_identifier       = module.vpc.public_subnets
 
-  target_group_arns     = [aws_lb_target_group.lb_target_group.arn]
-  protect_from_scale_in = true
+  target_group_arns = [aws_lb_target_group.lb_target_group.arn]
+  force_delete      = true
   lifecycle {
     create_before_destroy = true
   }

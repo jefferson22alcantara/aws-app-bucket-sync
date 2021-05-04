@@ -124,7 +124,8 @@ resource "aws_autoscaling_group" "asg-db" {
   health_check_grace_period = 60
   vpc_zone_identifier       = module.vpc.public_subnets
   load_balancers            = [module.elb.this_elb_id]
-  protect_from_scale_in     = true
+  # protect_from_scale_in     = true
+  force_delete = true
   lifecycle {
     create_before_destroy = true
   }
