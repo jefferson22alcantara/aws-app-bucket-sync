@@ -33,9 +33,10 @@ resource "aws_security_group" "lb" {
 }
 
 resource "aws_lb_target_group" "lb_target_group" {
-  name        = "challenge-web-target-group"
-  port        = "80"
-  protocol    = "HTTP"
+  name     = "challenge-web-target-group"
+  port     = "80"
+  protocol = "HTTP"
+  # target_type = "ip" ### TO FARGATE 
   target_type = "instance"
   vpc_id      = data.aws_vpc.main.id
   health_check {
@@ -45,6 +46,9 @@ resource "aws_lb_target_group" "lb_target_group" {
     timeout             = 60
     interval            = 300
     matcher             = "200,301,302"
+  }
+  lifecycle {
+    create_before_destroy = true
   }
 }
 
