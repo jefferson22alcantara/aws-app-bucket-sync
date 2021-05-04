@@ -22,6 +22,7 @@ jobs:
         # tf_actions_subcommand: 'init'
         tf_actions_comment: true    
     - name: Terraform Init
+      uses: hashicorp/terraform-github-actions@master
       id: init
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -34,6 +35,7 @@ jobs:
         tf_actions_comment: true       
     
     - name: Terraform fmt
+      uses: hashicorp/terraform-github-actions@master
       id: fmt
       # run: terraform fmt -check
       continue-on-error: true
@@ -44,6 +46,7 @@ jobs:
         tf_actions_comment: true 
 
     - name: Terraform Validate
+      uses: hashicorp/terraform-github-actions@master
       id: validate
       # run: terraform validate -no-color
       with:
