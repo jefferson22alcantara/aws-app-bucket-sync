@@ -44,7 +44,7 @@ resource "aws_security_group" "ec2-sg-db" {
 
 module "elb" {
   source  = "terraform-aws-modules/elb/aws"
-  version = "2.3.0"
+  version = "2.4.0"
 
   name = "db-elb"
 
