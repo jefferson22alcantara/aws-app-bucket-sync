@@ -76,6 +76,8 @@ In file `alb.tf` we create Application Load Balancer with target groups, securit
     echo "PR_REQUEST_0.0.1" >> CHANGELOG.md 
     git commit -a -m 'PR_REQUEST_0.0.1'
     git push origin PR_REQUEST_0.0.1  
+    [PR_REQUEST_0.0.1 5d94c7f] PR_REQUEST_0.0.1
+    1 file changed, 1 insertion(+)
 ```
 Open Pull request </br>
 ![pull request ](imgs/pull_request.jpg?raw=true "Diagram")
