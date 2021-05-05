@@ -5,6 +5,7 @@ on:
     branches:
     - main
   pull_request:
+    types: [ closed ]
 
 jobs:
   terraform:
@@ -91,8 +92,8 @@ jobs:
             body: output
           })
 
+  terraform_apply: 
     - name: Terraform Apply
-      # if: github.event.pull_request.merged == 'true'  if: github.event_name == 'pull_request' ###&& github.event_name == 'push'
       if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
       uses: hashicorp/terraform-github-actions@master
       id: approve 
