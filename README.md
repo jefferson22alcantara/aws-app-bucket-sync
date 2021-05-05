@@ -78,13 +78,16 @@ In file `alb.tf` we create Application Load Balancer with target groups, securit
     The Database servers  are running on Ec2 instances and using elastic load balance for balance Session beteewn instances and provide more scales 
 ## How to Deploy 
 
-
+ # Apply Request 
  ```
     git clone repo : 
     git https://github.com/jefferson22alcantara/aws-app-bucket-sync.git
     cd aws-app-bucket-sync 
     git checkout -b 'PR_REQUEST_0.0.1'
-    echo "PR_REQUEST_0.0.1" >> CHANGELOG.md 
+``` 
+**Note:** **Remove comment siggn **#** from file on .github/workflows/ci_terraform.yaml **
+```
+   echo "PR_REQUEST_0.0.1" >> CHANGELOG.md 
     git commit -a -m 'PR_REQUEST_0.0.1'
     git push origin PR_REQUEST_0.0.1  
     [PR_REQUEST_0.0.1 5d94c7f] PR_REQUEST_0.0.1
@@ -109,6 +112,8 @@ In file `alb.tf` we create Application Load Balancer with target groups, securit
 ![pull request ](imgs/pull_request.jpg?raw=true "Diagram")
 
 
+# Destroy Pull Request 
+**Note:** **Follow the all steps before and Add Comment Sign # to file .github/workflows/ci_terraform.yaml and Remove comment Sign from file ci_terraform_destroy.yaml**
 ### Waiting for terraform result and Plan </br>
 ![terraform_plan ](imgs/terraform_plan_result_2.png?raw=true "Diagram")
 ![terraform_plan ](imgs/terraform_plan_result_1.png?raw=true "Diagram")
