@@ -94,7 +94,7 @@ jobs:
 
 
   terraform_apply:
-    name: 'Terraform Apply '
+    name: 'terraform_apply'
     runs-on: ubuntu-latest
     steps:
     - name: Terraform Apply
