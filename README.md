@@ -112,13 +112,19 @@ In file `alb.tf` we create Application Load Balancer with target groups, securit
 ### Waiting for terraform result and Plan </br>
 ![terraform_plan ](imgs/terraform_plan_result_2.png?raw=true "Diagram")
 ![terraform_plan ](imgs/terraform_plan_result_1.png?raw=true "Diagram")
+![Project Home ](imgs/terraform_apply_success.png?raw=true "Diagram")
+</br>
+</br>
+</br>
 
-Getting the Url from elb  output and open on your browser : </br>
+## Getting the Url from elb  output and open on your browser 
+</br>
 
-![Project Home ](imgs/projetc_home.jpg?raw=true "Diagram")
+![Project Home ](imgs/terraform_output_elbs.png?raw=true "Diagram")
+**Eg: alb_dns = challenge-ecs-lb-1598373507.us-east-1.elb.amazonaws.com** 
 
-
-Select bucket :aws-app-bucket-sync-11   and client on list bucket button </br>
+## Select bucket :aws-app-bucket-sync-11   and client on list bucket button
+</br>
 
 Click on sync button and choice or destination bucket 
 ![select ](imgs/projetc_home.jpg?raw=true "Diagram")
