@@ -78,7 +78,7 @@ jobs:
         tf_actions_working_dir: 'terraform' 
         tf_actions_subcommand: 'apply'
         tf_actions_comment: true
-      continue-on-error: true
+      continue-on-error: false
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}      
