@@ -127,7 +127,7 @@ In file `alb.tf` we create Application Load Balancer with target groups, securit
 </br>
 
 Click on sync button and choice or destination bucket 
-![select ](imgs/projetc_home.jpg?raw=true "Diagram")
+![select ](imgs/2021-05-05-02-36-30.gif?raw=true "Diagram")
 
 
 
