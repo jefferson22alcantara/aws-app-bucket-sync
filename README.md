@@ -9,7 +9,20 @@ The aws-app-bucket-sync is the application challenge just to describe how to run
 ![AWS Architecture Diagram challenge](imgs/challenge-aws.jpg?raw=true "Diagram")
 
 
+## Aplication  
+</br>
 
+![AWS Aplication ](imgs/home_1.png?raw=true "Diagram")
+
+### Describe Aplication Steps 
+-  Python Flask Running and waiting for http request on path **{url}/_list_bucket** to get list of object on bucket aws.   
+-  After click on bucket **SYNC** button , a  request post **{url}/_request_sync**  is send to web server .
+-  The Front End send update on Postgress Database to  collum **sync_status** with **PROCESSING**  and update a colum **sync_request** with **True** value 
+- Workers steps:
+    -   worker 1 sleep 10 seconds and update a list of object from bucket and send the infos to Postgress 
+    -   worker 2 sleep 10 seconds and get infos from postgress database and create a Mongo Collection *object* 
+    -   worker 3 sleep 10 seconds and get status from sync_request on postgress db and start a sync from bucket source and destination bucket . 
+    
 ## Describe Architecture 
 
 ```
@@ -36,11 +49,9 @@ WORKER 3  - GET REQUEST_SYNC FROM POSTGRESS DATABASE AND START A SYNC OBJECT
 
 ```
  ## Ec2 instances Type : 
-For this challeng we choice just ec2  t2.micro type for: <br />
+For this challeng we choice just ec2  **t2.micro** type for: <br />
 * Database servers. 
 * Ecs Instance servers. 
-
-    
 
  ## Cluster Ecs 
  Cluster is created using container instances (EC2 launch type, not Fargate!).
@@ -79,12 +90,28 @@ In file `alb.tf` we create Application Load Balancer with target groups, securit
     [PR_REQUEST_0.0.1 5d94c7f] PR_REQUEST_0.0.1
     1 file changed, 1 insertion(+)
 ```
-Open Pull request </br>
+```
+    Enumerating objects: 9, done.
+    Counting objects: 100% (9/9), done.
+    Delta compression using up to 12 threads
+    Compressing objects: 100% (5/5), done.
+    Writing objects: 100% (6/6), 696 bytes | 696.00 KiB/s, done.
+    Total 6 (delta 3), reused 0 (delta 0), pack-reused 0
+    remote: Resolving deltas: 100% (3/3), completed with 2 local objects.
+    remote:
+    remote: Create a pull request for 'PR_REQUEST_0.0.1' on GitHub by visiting:
+    remote:      https://github.com/jefferson22alcantara/aws-app-bucket-sync/pull/new/PR_REQUEST_0.0.1
+    remote:
+    To https://github.com/jefferson22alcantara/aws-app-bucket-sync.git
+    * [new branch]      PR_REQUEST_0.0.1 -> PR_REQUEST_0.0.1
+```
+### Open Pull request </br>
 ![pull request ](imgs/pull_request.jpg?raw=true "Diagram")
 
 
-Waiting for terraform Plan result</br>
-![Project Home ](imgs/projetc_home.jpg?raw=true "Diagram")
+### Waiting for terraform result and Plan </br>
+![terraform_plan ](imgs/terraform_plan_result_2.png?raw=true "Diagram")
+![terraform_plan ](imgs/terraform_plan_result_1.png?raw=true "Diagram")
 
 Getting the Url from elb  output and open on your browser : </br>
 
