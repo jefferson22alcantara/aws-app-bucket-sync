@@ -98,13 +98,6 @@ jobs:
           #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
           #### Terraform Validation 🤖${{ steps.validate.outputs.stdout }}
           #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
-          
-          <details><summary>Show Plan</summary>
-          
-          \`\`\`${{ steps.plan.outputs.stdout }}\`\`\`
-          
-          </details>
-          
           *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`,  Workflow: \`${{ github.workflow }}\`*`;
             
           github.issues.createComment({
@@ -117,3 +110,7 @@ jobs:
     # - name: Terraform Apply
     #   if: github.ref == 'refs/heads/master' && github.event_name == 'push'
     #   run: terraform apply -auto-approve
+
+    - name: run-something
+      if: github.event.issue.comment.body == "Github, OK to test" && github.event.issue.comment.author == "bkabrda"
+      run: <do your stuff here>
